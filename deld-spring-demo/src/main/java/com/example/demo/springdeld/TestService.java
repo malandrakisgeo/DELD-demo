@@ -1,12 +1,10 @@
 package com.example.demo.springdeld;
 
 import com.example.demo.model.Customer;
-import org.gmalandrakis.deld.annotations.Body;
-import org.gmalandrakis.deld.annotations.DefaultHeader;
-import org.gmalandrakis.deld.annotations.GET;
-import org.gmalandrakis.deld.annotations.QueryParam;
+import org.gmalandrakis.deld.annotations.*;
 import org.gmalandrakis.deld.model.Response;
 
+@BaseURL(url = "http://localhost:8080/test/")
 public interface TestService {
 
     @GET(url = "Springtest")

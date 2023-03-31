@@ -7,7 +7,7 @@ import javax.enterprise.inject.Produces;
 public class DELDConfig {
     @Produces
     TestService testServiceProducer(){
-        return (TestService)  new DELDBuilder().setBaseURL("http://localhost:1531/").forService(TestService.class);
+        return (TestService)  new DELDBuilder().forService(TestService.class);
     }
 
 }

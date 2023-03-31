@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
 public class DELDConfig {
     @Bean
     public TestService transferService() {
-        return (TestService)  new DELDBuilder().setBaseURL("http://localhost:8080/test/").forService(TestService.class);
+        return (TestService)  new DELDBuilder().forService(TestService.class);
     }
 }

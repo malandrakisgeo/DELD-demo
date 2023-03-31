@@ -7,6 +7,7 @@ import org.gmalandrakis.model.Customer;
 
 import java.io.InputStream;
 
+@BaseURL(url = "http://localhost:1531/")
 public interface TestService {
 
     @GET(fullUrl = "localhost:8080")
