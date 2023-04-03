@@ -2,6 +2,7 @@ package org.gmalandrakis;
 
 
 import org.gmalandrakis.deld.annotations.*;
+import org.gmalandrakis.deld.model.AsyncResponse;
 import org.gmalandrakis.deld.model.Response;
 import org.gmalandrakis.model.Customer;
 
@@ -16,6 +17,11 @@ public interface TestService {
     @GET(url = "testGet")
     @DefaultHeader(headerName = "Accept", value = "application/json")
     public Response<Customer> getUpdatedCustomer(@Body Customer customer);
+
+    @Async
+    @GET(url = "testGetAsync")
+    @DefaultHeader(headerName = "Accept", value = "application/json")
+    public AsyncResponse<Customer> getUpdatedCustomerAsync(@Body Customer customer);
 
     @GET(url = "testParam")
     @DefaultHeader(headerName = "Accept", value = "application/json")

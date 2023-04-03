@@ -7,23 +7,35 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @ApplicationScoped
 public class AppLifecycleBean {
     @Inject
     TestService testService;
+    private final Executor threadsForAsync = Executors.newFixedThreadPool(3);
+
     private static final Logger LOGGER = Logger.getLogger("ListenerBean");
 
     void onStart(@Observes StartupEvent ev) {
         try {
-            //TimeUnit.SECONDS.sleep(2);
-             var a = this.testService.getUpdatedCustomer(null);
-            LOGGER.info(a.getBody().getEmail());
-            LOGGER.info(a.getHttpStatus());
+
+            var a = this.testService.getUpdatedCustomer(null);
+            LOGGER.warn("sync response: ");
+            LOGGER.warn(a.getBody().getEmail());
+            LOGGER.warn(a.getHttpStatus());
+
+            threadsForAsync.execute(()->{
+                this.testService.getUpdatedCustomerAsync(null)
+                        .whenCompleteAsync((customer, arg) -> {
+                            LOGGER.warn("Async response: ");
+                            LOGGER.warn(customer.getEmail());
+                        });
+            });
 
             var b = this.testService.getUpdatedCustomerWithParams("email", new Customer());
-            LOGGER.info(b.getBody().getEmail());
+            LOGGER.info(b.getBody());
+
 
             var d = this.testService.getFile();
             LOGGER.info(d.getHeaders().get("Content-Length"));
